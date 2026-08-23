@@ -17,9 +17,9 @@
 			<atom:link href="http://localhost:1313/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>网站开山之作</title>
-				<link>http://localhost:1313/posts/my-first-post/</link>
+				<link>http://localhost:1313/posts/1/</link>
 				<pubDate>Fri, 21 Aug 2026 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/posts/my-first-post/</guid>
+				<guid>http://localhost:1313/posts/1/</guid>
 				<description>&lt;h2 id=&#34;欢迎&#34;&gt;欢迎&lt;/h2&gt;&#xA;&lt;p&gt;欢迎来到shght服务器官网！这是用 &lt;strong&gt;Hugo&lt;/strong&gt; 和 &lt;strong&gt;PaperMod&lt;/strong&gt; 主题搭建的静态网站。&lt;/p&gt;&#xA;&lt;h2 id=&#34;功能亮点&#34;&gt;功能亮点&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;纯静态，加载飞快&lt;/li&gt;&#xA;&lt;li&gt;暗色主题，自动适配&lt;/li&gt;&#xA;&lt;li&gt;站内搜索&lt;/li&gt;&#xA;&lt;li&gt;代码复制按钮&lt;/li&gt;&#xA;&lt;li&gt;社交分享&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 这是一段代码示例&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello, World!&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
 			</item>
 	</channel>
