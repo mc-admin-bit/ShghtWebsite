@@ -14,56 +14,62 @@ enableEmoji = true
 # 输出格式（搜索功能依赖）
 # ========================================
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+home = ["HTML", "RSS", "JSON"]
 
 # ========================================
 # 主页布局：Home-Info 模式 + 全部增强功能
 # ========================================
 [params]
-  # 明暗主题：默认暗色，允许用户切换
-  defaultTheme = "dark"
-  disableThemeToggle = false
+# 明暗主题：默认暗色，允许用户切换
+defaultTheme = "dark"
+disableThemeToggle = false
 
-  # Home-Info 模式配置
-   homeInfoParams = { Title = "欢迎来到Shght服务器官网", Content = "一个MC服务器官网兼服主的博客" }
+# Home-Info 模式配置
+homeInfoParams = { Title = "欢迎来到Shght服务器官网", Content = "一个MC服务器官网兼服主的博客" }
 
-  # ===== 全部增强功能 =====
-  ShowReadingTime = false           # 显示阅读时间
-  ShowWordCount = false             # 显示字数
-  ShowPostNavLinks = true           # 上一篇 / 下一篇导航
-  ShowBreadCrumbs = true            # 面包屑导航
-  ShowCodeCopyButtons = true        # 代码复制按钮
-  ShowToc = false                   # 开启文章目录
-  TocOpen = true                    # 目录默认展开
-  ShowShareButtons = false          # 开启分享按钮
-  ShowRelatedPosts = true           # 显示相关文章推荐
+# ===== 全部增强功能 =====
+ShowReadingTime = false    # 显示阅读时间
+ShowWordCount = false      # 显示字数
+ShowPostNavLinks = true    # 上一篇 / 下一篇导航
+ShowBreadCrumbs = true     # 面包屑导航
+ShowCodeCopyButtons = true # 代码复制按钮
+ShowToc = false            # 开启文章目录
+TocOpen = true             # 目录默认展开
+ShowShareButtons = true    # 开启分享按钮
+ShowRelatedPosts = true    # 显示相关文章推荐
 
-  # ===== 社交链接 =====
-  [[params.socialIcons]]
-    name = "github"
-    url = "https://github.com/mc-admin-bit"
+# ===== 社交链接 =====
+[[params.socialIcons]]
+name = "github"
+url = "https://github.com/mc-admin-bit"
 
-  [[params.socialIcons]]
-    name = "email"
-    url = "mailto:jinbang202309@126.com"
+[[params.socialIcons]]
+name = "email"
+url = "mailto:jinbang202309@126.com"
 
 # ========================================
 # 导航菜单
 # ========================================
 [[menu.main]]
-  identifier = "posts"
-  name = "博客"
-  url = "/posts/"
-  weight = 10
+identifier = "posts"
+name = "博客"
+url = "/posts/"
+weight = 10
 
 [[menu.main]]
-  identifier = "search"
-  name = "搜索"
-  url = "/search/"
-  weight = 20
+identifier = "search"
+name = "搜索"
+url = "/search/"
+weight = 20
 
 [[menu.main]]
-  identifier = "about"
-  name = "关于"
-  url = "/about/"
-  weight = 30
+identifier = "about"
+name = "关于"
+url = "/about/"
+weight = 30
+
+[[menu.main]]
+identifier = "login"
+name = "登录"
+url = "/login/"
+weight = 40
