@@ -1,0 +1,3 @@
+[[kv_namespaces]]
+binding = "USER_DB"                     # 代码里用的变量名，要和 login.js 里的一致
+id = "e66f5558a8494ba0bda23a5113e4cbd9" # 在 KV 仪表盘可以找到
