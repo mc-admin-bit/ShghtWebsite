@@ -28,8 +28,6 @@
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/login/</loc>
-  </url><url>
     <loc>http://localhost:1313/search/</loc>
   </url>
 </urlset>
