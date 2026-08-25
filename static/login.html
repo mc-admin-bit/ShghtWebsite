@@ -17,30 +17,35 @@
             margin: 0;
         }
 
-        .login-container {
+        .container {
             max-width: 400px;
             width: 100%;
             padding: 40px 30px;
             background: #2d2d2d;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
 
-        .login-container h2 {
+        h2 {
             margin-top: 0;
-            text-align: center;
             color: #fff;
         }
 
-        .login-container label {
+        .login-form {
             display: block;
+        }
+
+        .login-form label {
+            display: block;
+            text-align: left;
             margin-bottom: 5px;
             font-size: 14px;
             color: #bbb;
         }
 
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
             width: 100%;
             padding: 10px 12px;
             margin-bottom: 18px;
@@ -52,12 +57,7 @@
             box-sizing: border-box;
         }
 
-        .login-container input:focus {
-            outline: none;
-            border-color: #007bff;
-        }
-
-        .login-container button {
+        .login-form button {
             width: 100%;
             padding: 12px;
             background: #007bff;
@@ -69,35 +69,92 @@
             transition: background 0.2s;
         }
 
-        .login-container button:hover {
+        .login-form button:hover {
             background: #0056b3;
         }
 
         #message {
             margin-top: 15px;
-            text-align: center;
             font-size: 14px;
             min-height: 20px;
+        }
+
+        .logout-section {
+            display: none;
+        }
+
+        .logout-section p {
+            font-size: 18px;
+            color: #51cf66;
+        }
+
+        .logout-section button {
+            padding: 12px 30px;
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .logout-section button:hover {
+            background: #b02a37;
         }
     </style>
 </head>
 
 <body>
-    <div class="login-container">
-        <h2>用户登录</h2>
-        <form id="login-form">
-            <label for="username">用户名</label>
-            <input type="text" id="username" placeholder="输入用户名" required>
+    <div class="container">
+        <h2>🔐 用户登录</h2>
 
-            <label for="password">密码</label>
-            <input type="password" id="password" placeholder="输入密码" required>
+        <!-- 登录表单 -->
+        <div id="login-section" class="login-form">
+            <form id="login-form">
+                <label for="username">用户名</label>
+                <input type="text" id="username" placeholder="输入用户名" required>
 
-            <button type="submit">登录</button>
-            <div id="message"></div>
-        </form>
+                <label for="password">密码</label>
+                <input type="password" id="password" placeholder="输入密码" required>
+
+                <button type="submit">登录</button>
+                <div id="message"></div>
+            </form>
+        </div>
+
+        <!-- 已登录状态 -->
+        <div id="logout-section" class="logout-section">
+            <p>✅ 您已登录为 <span id="display-username"></span></p>
+            <button id="logout-btn">登出</button>
+        </div>
     </div>
 
     <script>
+        // ---------- 检查登录状态 ----------
+        async function checkLoginStatus() {
+            try {
+                const resp = await fetch('/api/me', {
+                    credentials: 'same-origin'
+                });
+                const data = await resp.json();
+                if (data.loggedIn) {
+                    // 显示登出界面
+                    document.getElementById('login-section').style.display = 'none';
+                    document.getElementById('logout-section').style.display = 'block';
+                    document.getElementById('display-username').textContent = data.username;
+                } else {
+                    // 显示登录界面
+                    document.getElementById('login-section').style.display = 'block';
+                    document.getElementById('logout-section').style.display = 'none';
+                }
+            } catch (err) {
+                // 网络错误时默认显示登录界面
+                document.getElementById('login-section').style.display = 'block';
+                document.getElementById('logout-section').style.display = 'none';
+            }
+        }
+
+        // ---------- 登录表单处理 ----------
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -115,6 +172,7 @@
                 const response = await fetch('/api/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
                     body: JSON.stringify({ username, password })
                 });
 
@@ -122,19 +180,39 @@
 
                 if (response.ok) {
                     messageEl.style.color = '#51cf66';
-                    messageEl.textContent = '登录成功！正在跳转...';
-                    setTimeout(() => {
-                        window.location.href = '/';
-                    }, 800);
+                    messageEl.textContent = '✅ 登录成功！';
+                    // 重新检查登录状态，刷新界面
+                    checkLoginStatus();
                 } else {
                     messageEl.style.color = '#ff6b6b';
-                    messageEl.textContent = result.error || '登录失败，请检查用户名和密码';
+                    messageEl.textContent = result.error || '❌ 登录失败';
                 }
             } catch (error) {
                 messageEl.style.color = '#ff6b6b';
-                messageEl.textContent = '网络错误，请稍后重试';
+                messageEl.textContent = '⚠️ 网络错误，请稍后重试';
             }
         });
+
+        // ---------- 登出处理 ----------
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/api/logout', {
+                    method: 'POST',
+                    credentials: 'same-origin'
+                });
+                if (response.ok) {
+                    // 登出成功，刷新状态
+                    checkLoginStatus();
+                } else {
+                    alert('登出失败，请重试');
+                }
+            } catch (err) {
+                alert('网络错误，请重试');
+            }
+        });
+
+        // ---------- 页面加载时检查登录状态 ----------
+        document.addEventListener('DOMContentLoaded', checkLoginStatus);
     </script>
 </body>
 
