@@ -3,7 +3,7 @@ title: "网站开山之作"
 date: 2026-08-21
 draft: false
 tags: ["Hugo", "PaperMod", "教程"]
-author: "minecraft_admin"
+author: "uufjjdj"
 description: "这是网站的第一篇文章，欢迎来到Shght服务器官网！"
 ShowToc: false
 ---
@@ -11,6 +11,8 @@ ShowToc: false
 ## 欢迎
 
 欢迎来到shght服务器官网！这是用 **Hugo** 和 **PaperMod** 主题搭建的静态网站。
+
+服务由 **Cloudflare Pages** 提供。
 
 ## 功能亮点
 
@@ -22,5 +24,5 @@ ShowToc: false
 
 ```bash
 # 这是一段代码示例
-echo "Hello, World!"
+print("Hello, World!")
 ```

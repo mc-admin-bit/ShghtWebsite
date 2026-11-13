@@ -1,7 +1,8 @@
 # ========================================
 # 基础配置
 # ========================================
-baseURL = 'https://shght.pages.dev'
+# baseURL = 'https://shght.pages.dev'
+baseURL = '/'
 title = 'Shght服务器官网'
 theme = 'PaperMod'
 languageCode = 'zh-CN'
@@ -35,7 +36,7 @@ ShowBreadCrumbs = true     # 面包屑导航
 ShowCodeCopyButtons = true # 代码复制按钮
 ShowToc = false            # 开启文章目录
 TocOpen = true             # 目录默认展开
-ShowShareButtons = true    # 开启分享按钮
+ShowShareButtons = false   # 开启分享按钮
 ShowRelatedPosts = true    # 显示相关文章推荐
 
 # ===== 社交链接 =====
@@ -69,7 +70,7 @@ url = "/about/"
 weight = 30
 
 [[menu.main]]
-identifier = "login"
-name = "登录"
-url = "/login/"
+identifier = "submit"
+name = "投稿"
+url = "https://tally.so/r/Z9EeqA"
 weight = 40
