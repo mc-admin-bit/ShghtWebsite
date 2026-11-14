@@ -1,10 +1,10 @@
 ---
-title: "Shght历史（一服）"
-date: 2026-11-14
+title: 'Shght历史（一服）'
+date: '2026-11-14'
 draft: false
-tags: ["历史"]
-author: "ecb"
-description: "这是Shght服务器官方正史"
+tags: ['历史']
+author: 'ecb'
+description: '这是Shght服务器官方正史'
 ---
 # Shght 服务器一服正史
 

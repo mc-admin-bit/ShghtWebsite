@@ -1,10 +1,10 @@
 ---
-title: "网站开山之作"
-date: 2026-08-21
+title: '网站开山之作'
+date: '2026-08-21'
 draft: false
-tags: ["Hugo", "PaperMod", "教程"]
-author: "uufjjdj"
-description: "这是网站的第一篇文章，欢迎来到Shght服务器官网！"
+tags: ['Hugo', 'PaperMod', '教程']
+author: 'uufjjdj'
+description: '这是网站的第一篇文章，欢迎来到Shght服务器官网！'
 cover: 
     image: '/images/old_player.jpg'
 ---
@@ -25,5 +25,5 @@ cover:
 
 ```bash
 # 这是一段代码示例
-print("Hello, World!")
+print('Hello, World!')
 ```
