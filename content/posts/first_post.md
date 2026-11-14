@@ -6,7 +6,7 @@ tags: ["Hugo", "PaperMod", "教程"]
 author: "uufjjdj"
 description: "这是网站的第一篇文章，欢迎来到Shght服务器官网！"
 cover: 
-    image: "/images/old_player.jpg"
+    image: '/images/old_player.jpg'
 ---
 
 ## 欢迎
