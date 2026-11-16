@@ -1,0 +1,120 @@
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{{- ( site.Params.schema.publisherType | default "Organization") | title -}}",
+  "name": {{ site.Title }},
+  "url": {{ site.Home.Permalink }},
+  "description": {{ site.Params.description | plainify | truncate 180 | safeHTML }},
+  {{- if (eq site.Params.schema.publisherType "Person") }}
+  "image": {{ site.Params.assets.favicon | default "favicon.ico" | absURL }},
+  {{- else }}
+  "logo": {{ site.Params.assets.favicon | default "favicon.ico" | absURL }},
+  {{- end }}
+  "sameAs": [
+    {{- if site.Params.schema.sameAs }}
+      {{ range $i, $e := site.Params.schema.sameAs }}{{ if $i }}, {{ end }}{{ trim $e " " }}{{ end }}
+    {{- else}}
+      {{ range $i, $e := site.Params.SocialIcons }}{{ if $i }}, {{ end }}{{ trim $e.url " " | safeURL }}{{ end }}
+    {{- end}}
+  ]
+}
+</script>
+{{- else if (or .IsPage .IsSection) }}
+{{/* ==================== 1. BreadcrumbList 面包屑 ==================== */}}
+{{- $url := replace .Parent.Permalink ( printf "%s" site.Home.Permalink) "" }}
+{{- $lang_url := strings.TrimPrefix ( printf "%s/" .Lang) $url }}
+{{- $bc_list := (split $lang_url "/")}}
+{{- $path := "" }}
+{{- $items := slice }}
+
+{{- range $index, $element := $bc_list }}
+  {{- $path = printf "%s%s/" $path $element }}
+  {{- $bc_pg := site.GetPage $path -}}
+  {{- if (and ($bc_pg) (gt (len . ) 0))}}
+    {{- $item := dict "@type" "ListItem" "position" (add 1 $index) "name" $bc_pg.Name "item" $bc_pg.Permalink }}
+    {{- $items = $items | append $item }}
+  {{- end }}
+{{- end }}
+
+{{- /* 添加当前页面自身 */ -}}
+{{- if (ge (len $bc_list) 2) }}
+  {{- $self_item := dict "@type" "ListItem" "position" (len $bc_list) "name" .Name "item" .Permalink }}
+  {{- $items = $items | append $self_item }}
+{{- end }}
+
+{{- $breadcrumb_dict := dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $items }}
+<script type="application/ld+json">
+{{ $breadcrumb_dict | jsonify | safeJS }}
+</script>
+
+{{- if .IsPage }}
+{{/* ==================== 2. BlogPosting 文章数据 ==================== */}}
+{{- $desc := "" }}
+{{- if .Description }}
+  {{- $desc = .Description | plainify }}
+{{- else }}
+  {{- $desc = .Summary | plainify }}
+{{- end }}
+
+{{- $images := partial "templates/_funcs/get-page-images" . -}}
+{{- $img := "" }}
+{{- if .Params.cover.image -}}
+  {{- if (ne .Params.cover.relative true) -}}
+    {{- $img = .Params.cover.image | absURL -}}
+  {{- else -}}
+    {{- $img = (path.Join .RelPermalink .Params.cover.image ) | absURL -}}
+  {{- end}}
+{{- else }}
+  {{- with index $images 0 -}}
+    {{- $img = .Permalink -}}
+  {{- end }}
+{{- end -}}
+
+{{- $keywords := slice }}
+{{- if .Params.keywords }}
+  {{- $keywords = .Params.keywords }}
+{{- else if .Params.tags }}
+  {{- $keywords = .Params.tags }}
+{{- end }}
+
+{{- $author := slice }}
+{{- with (.Params.author | default site.Params.author) }}
+  {{- if (or (eq (printf "%T" .) "[]string") (eq (printf "%T" .) "[]interface {}")) -}}
+    {{- range $v := . }}{{ $author = $author | append (dict "@type" "Person" "name" $v) }}{{ end }}
+  {{- else -}}
+    {{- $author = $author | append (dict "@type" "Person" "name" .) }}
+  {{- end -}}
+{{- end }}
+
+{{- /* 组装基础字典 */ -}}
+{{- $blog_dict := dict 
+  "@context" "https://schema.org" 
+  "@type" "BlogPosting" 
+  "headline" (.Title | plainify) 
+  "name" (.Title | plainify) 
+  "description" $desc 
+  "keywords" $keywords 
+  "articleBody" (.Content | safeJS | htmlUnescape | plainify) 
+  "wordCount" (printf "%d" .WordCount) 
+  "inLanguage" (.Language.Name | default "en-us") 
+  "datePublished" (.PublishDate | time.Format "2006-01-02T15:04:05Z07:00") 
+  "dateModified" (.Lastmod | time.Format "2006-01-02T15:04:05Z07:00") 
+  "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink) 
+  "publisher" (dict 
+    "@type" (site.Params.schema.publisherType | default "Organization" | title) 
+    "name" site.Title 
+    "logo" (dict "@type" "ImageObject" "url" (site.Params.assets.favicon | default "favicon.ico" | absURL)) 
+  )
+}}
+
+{{- /* 按需合并图片和作者 */ -}}
+{{- if $img }}{{ $blog_dict = merge $blog_dict (dict "image" $img) }}{{ end }}
+{{- if $author }}{{ $blog_dict = merge $blog_dict (dict "author" $author) }}{{ end }}
+
+<script type="application/ld+json">
+{{ $blog_dict | jsonify | safeJS }}
+</script>
+{{- end }}{{/* .IsPage end */}}
+
+{{- end -}}

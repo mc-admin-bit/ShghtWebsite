@@ -32,7 +32,7 @@ homeInfoParams = { Title = "欢迎来到Shght服务器官网", Content = "一个
 ShowReadingTime = false    # 显示阅读时间
 ShowWordCount = false      # 显示字数
 ShowPostNavLinks = true    # 上一篇 / 下一篇导航
-ShowBreadCrumbs = true     # 面包屑导航
+ShowBreadCrumbs = true     # 面包屑导航(PaperMod在压缩构建时有bug,千万不要开启,除非已经更新!!!)
 ShowCodeCopyButtons = true # 代码复制按钮
 ShowToc = false            # 开启文章目录
 TocOpen = true             # 目录默认展开
